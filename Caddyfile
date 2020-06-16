@@ -1,0 +1,23 @@
+{
+    order webdav last
+}
+:8080 {
+    log
+    root * /data
+
+    handle /files/* {
+        uri strip_prefix /files
+        file_server browse
+    }
+    redir /files /files/
+
+    handle /webdav/* {
+        uri strip_prefix /webdav
+        webdav
+    }
+    redir /webdav /webdav/
+
+    basicauth /* {
+        username password_hash
+    }
+}
